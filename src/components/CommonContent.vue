@@ -9,7 +9,7 @@
             <img src="../assets/img/loading.gif" alt="">
         </div>
         <ul id="product-list">
-        	<product-list v-for="product in productList" :id='product.prod_id' :img='product.prod_img' :name='product.prod_name' :price='product.prod_price'></product-list>
+        	<product-list v-for="product in productList" :id='product.prod_id' :img='product.prod_img' :name='product.prod_name' :price='product.prod_price' @showDialog="showDialog" :logined='logined'></product-list>
         </ul>
         <div id="load-more" @click='loadDate'>
             加载更多...
@@ -20,6 +20,7 @@
 	import ProductList from './ProductList'
 	import Axios from 'axios'
 	export default{
+		props:['logined'],
 		data(){
 			return{
 				productList:[],
@@ -41,6 +42,9 @@
 			});		
 		},
 		methods:{
+			showDialog:function(data){
+				this.$emit('showDialog',data);
+			},
 			loadDate:function(){
 				if(this.isEnd){
 						alert('没有数据啦♪(^∇^*)♪~\(≧▽≦)/~啦啦啦');
